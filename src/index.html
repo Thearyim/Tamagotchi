@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Tamagotchi</title>
+  </head>
+  <body>
+    <div id="intro">
+    <h1>Welcome to Tamagotchi</h1>
+    <h3>Please select your pet below: </h4><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShhG-UULi9HTlta5sWPfBhT9xb951mu281l_gteF3NHnrjlwnR" alt=""> <br/>
+      <form id="pickPetKind">
+        <select id="petKind" name="">
+          <option value="puppy">Puppy</option>
+          <option value="kitten">Kitten</option>
+          <option value="fish">Fish</option>
+        </select>
+        <button type="submit" class="btn btn-success">Begin!</button>
+      </form>
+    </div>
+    <div id="petIndex">
+    <h4>Give your new friend a name! <span id="petName"></span></h4>
+    <form id="Tamagotchi">
+      <label for="name">
+      <input id="name" type="text" name="name">
+      <button class="btn btn-success" type="submit" name="button">Play</button>
+    </form>
+    </div>
+
+    <div id="petLife">
+    <h3>Pet's Name: <span id="petName"></span></h3>
+    <div class="game">
+      <h2>Food Level: <span id="foodLevel"></span></h2>
+      <br>
+      <h3><span id="petDie"></span></h3>
+      <button id="feed" type="button" name="button">Feed the pet!</button>
+      <br/>
+      <h2>Happiness Level: <span id="happinessLevel"></span></h2>
+      <h3><span id="happiness"></span></h3>
+      <button id="play" type="button" name="button">Play with the pet!</button>
+      <br/>
+      <h2>Rest Level: <span id="restLevel"></span></h2>
+      <h3><span id="rest"></span></h3>
+      <button id="sleep" type="button" name="button">Nighty Night!</button>
+    </div>
+    </div>
+
+  </body>
+</html>
