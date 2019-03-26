@@ -3,39 +3,61 @@ import Tamagotchi from './tamagotchi.js';
 
 $(document).ready(function(){
   let pet;
+  let petType;
+  let refreshIntervalId;
 
   $("#pickPetKind").submit(function(){
     event.preventDefault();
-    var petType = $("#petKind").val();
-    if(petType == "puppy" && "kitten" && "fish"){
-      pet = new Tamagotchi($('#name').val());
+    petType = $("#petKind").val();
+    if(petType == "puppy" || petType == "kitten" || petType == "fish"){
       $("#intro").hide();
+      $("#petIndex").show();
     }
 
+  $("#Tamagotchi").submit(function() {
+      pet = new Tamagotchi($('#name').val());
+      $("#intro").hide();
+      $("#petIndex").hide();
+      $("#petLife").show();
 
-    $("#petLife").click(function() {
-      pet.setHunger();
-      pet.setHappiness();
-      pet.setRest();
-      $('#petName').text(pet.name);
-      $('#foodLevel').text(pet.foodLevel);
-      $('#happinessLevel').text(pet.happinessLevel);
-      $('#restLevel').text(pet.restLevel);
-      setInterval(function(){
-        $('#foodLevel').text(pet.foodLevel);
-        if(pet.didYourPetDie())
-          $('#petDie').text(`Sorry... Your pet ${pet.name} vanished. Your pet deserves a better home!`);
-        }, 1000);
-      console.log("set name, set intervals");
-      console.log(pet);
-    });
+      if (refreshIntervalId) {
+        clearInterval(refreshIntervalId);
+      }
+
+      refreshIntervalId = setInterval(function(){
+        refreshGameForm();
+      }, 1000);
+    }
 
     $("#feed").click(function(){
       pet.feed();
-      $('#foodLevel').text(pet.foodLevel);
-      console.log('feed');
-      console.log(pet);
+      refreshGameForm();
     });
 
+    $("#play").click(function(){
+      pet.play();
+      refreshGameForm();
+    });
+
+    $("#rest").click(function(){
+      pet.rest();
+      refreshGameForm();
+    });
   });
 });
+
+function refreshGameForm() {
+  if(pet.didYourPetDie()) {
+    if (refreshIntervalId) {
+      clearInterval(refreshIntervalId);
+    }
+
+    $('#petDie').text(`Sorry... Your pet ${pet.name} vanished. Your pet deserves a better home!`);
+  }
+  else {
+    $('#petName').text(pet.name);
+    $('#foodLevel').text(pet.foodLevel);
+    $('#happinessLevel').text(pet.happinessLevel);
+    $('#restLevel').text(pet.restLevel);
+  }
+}

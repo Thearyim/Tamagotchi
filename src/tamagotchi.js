@@ -1,35 +1,31 @@
 export default class Tamagotchi {
   constructor(name){
     this.name = name;
-    this.foodLevel = 10;
-    this.happinessLevel = 10;
-    this.restLevel = 10;
+    this.intervalIds = [];
+    this.feed();
+    this.play();
+    this.rest();
+    this.startIntervals();
   }
 
-  setHunger(){
-    setInterval( () => {
-      this.foodLevel--;
-    }, 10000);
-  }
+  startIntervals(){
+    this.intervalIds.push(setInterval( () => {
 
-  setHappiness(){
-    setInterval( () => {
+        this.foodLevel--;
+      }
+    }, 5000));
+
+    this.intervalIds.push(setInterval( () => {
+      if (this.happinessLevel > 0) {
       this.happinessLevel--;
-    }, 1000);
-  }
+      }
+    }, 5000));
 
-  setRest(){
-    setInterval( () => {
+    this.intervalIds.push(setInterval( () => {
+      if (this.restLevel > 0) {
       this.restLevel--;
-    }, 1000);
-  }
-
-  didYourPetDie(){
-    if(this.foodLevel <= 0 || this.happinessLevel <= 0 || this.restLevel <= 0){
-      return true;
-    } else {
-      return false;
-    }
+      }
+    }, 5000));
   }
 
   feed(){
@@ -40,7 +36,15 @@ export default class Tamagotchi {
     this.happinessLevel = 10;
   }
 
-  sleep(){
+  rest(){
     this.restLevel = 10;
+  }
+
+  didYourPetDie(){
+    if(this.foodLevel <= 0 || this.happinessLevel <= 0 || this.restLevel <= 0){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
